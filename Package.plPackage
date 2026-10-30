@@ -1,0 +1,59 @@
+// plasma.eos — Epic Online Services platform backend.
+//
+// The AUTHORED manifest, kept in source next to the plugin. It declares identity, compatibility,
+// what to load and what to ship. Component hashes and sizes are NOT here: the packaging step
+// computes those and emits them into the published manifest that ships inside the .plpkg.
+//
+// Field reference and validation rules: Docs/PluginPackageManagerPlan.html §05.
+
+PackageInfo
+{
+	// ---- identity -------------------------------------------------------------
+	string %Id{"plasma.eos"}
+	string %Version{"1.1.2"}
+	string %Publisher{"PlasmaTechnology"}
+	string %License{"MIT"}
+	string %Homepage{"https://plasmagameengine.com"}
+
+	// ---- compatibility --------------------------------------------------------
+	// Must equal plSdkVersion::GetAbiTag() of the engine these binaries were built
+	// against. The build configuration is part of it - a Development and a Shipping
+	// build do not share a binary interface.
+	string %MinEngineVersion{"0.11.2"}
+	string %MaxEngineVersion{"0.11.2"}
+	string %AbiTag{"win64-msvc19-0.11.2-abi6-dev"}
+
+	// ---- presentation ---------------------------------------------------------
+	// The SDK requirement leads the description: the plugin cannot load without the
+	// EOS SDK DLL, and a user who learns that from a load failure has wasted their time.
+	string %DisplayName{"Epic Online Services"}
+	string %Category{"Networking"}
+	string %Description{"Platform services through Epic Online Services: Epic account sign-in, achievements, stats, leaderboards, friends, presence, lobbies, lobby-based matchmaking, invites, entitlements, the Epic overlay, P2P transport, player data storage cloud saves and RTC voice. Registers as the 'eos' backend of the engine's platform services hub.
+
+The EOS SDK is not redistributed. Set EOS_SDK_PATH to the SDK root that contains SDK/Include/eos_sdk.h, SDK/Lib/EOSSDK-Win64-Shipping.lib and SDK/Bin/EOSSDK-Win64-Shipping.dll. EOSSDK-Win64-Shipping.dll must sit beside the game executable at runtime.
+
+Product, sandbox, deployment and client ids come from the 'eos' block of RuntimeConfigs/PlatformServices.ddl. The client secret is read from the PLASMA_EOS_CLIENT_SECRET environment variable in Development builds and is never shipped."}
+	string %Icon{"Branding/EosIcon.png"}
+	string %Banner{"Branding/EosBanner.png"}
+
+	// ---- binaries -------------------------------------------------------------
+	// Runtime only: no editor plugin and no editor-engine-process plugin. The store
+	// backend is never initialised in tool processes anyway.
+	// PackageDependencies names the SDK DLL so the packaging step knows the runtime
+	// component expects it beside the plugin, but the DLL itself is the developer's to
+	// provide - see the description.
+	string %EditorPlugins{}
+	string %EditorEnginePlugins{}
+	string %RuntimePlugins{"plEosPlugin"}
+	string %PackageDependencies{"EOSSDK-Win64-Shipping"}
+
+	// ---- dependencies ---------------------------------------------------------
+	// None resolvable through the registry. It binds to GameEngine and AudioSystem,
+	// both part of the engine, and to the EOS SDK, which is an external prerequisite.
+
+	// ---- components -----------------------------------------------------------
+	Component { string %Name{"manifest"} string %Platform{"any"} }
+	Component { string %Name{"runtime-win64"} string %Platform{"win64"} }
+	Component { string %Name{"icon"} string %Platform{"any"} }
+	Component { string %Name{"banner"} string %Platform{"any"} }
+}

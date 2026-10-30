@@ -1,0 +1,21 @@
+// for a description of the options see:
+// https://plengine.net/pages/docs/editor/editor-plugins.html
+
+PluginInfo
+{
+	string %DisplayName{"Epic Online Services"}
+	string %Category{"Gameplay"}
+	string %MinEngineVersion{"0.11.2"}
+	string %MaxEngineVersion{"0.11.2"}
+	string %Icon{"EosIcon.png"}
+	string %Banner{"EosBanner.png"}
+	string %Description{"Epic Online Services backend for the platform services hub: sign-in, achievements, stats, leaderboards, friends, presence, lobbies, matchmaking, invites, entitlements, overlay, P2P transport, cloud saves and voice. Requires the EOS SDK DLL beside the game."}
+	string %EditorPlugins{}
+	string %EditorEnginePlugins{}
+	string %RuntimePlugins{"plEosPlugin"}
+	string %PackageDependencies{"EOSSDK-Win64-Shipping"}
+	string %RequiredPlugins{}
+	string %ExclusiveFeatures{"PlatformBackend"}
+	string %EnabledInTemplates{}
+	string %PlasmaBuildTargetName{"EosPlugin"}
+}

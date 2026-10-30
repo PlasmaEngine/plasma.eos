@@ -1,0 +1,43 @@
+# Build output
+Binaries/
+Intermediate/
+Output/
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.link.rsp
+
+# Generated Qt sources (moc/uic/rcc)
+*.moc.cpp
+*_moc.cpp
+ui_*.h
+qrc_*.cpp
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Packaged output - blobs are release assets, never repository content
+*.plpkg
+_blobs/
+
+# Editor / OS
+.vs/
+.vscode/
+*.user
+Thumbs.db
+.DS_Store
+
+# Regenerated at publish time by PackageInspector --write-checksums.
+# A committed copy goes stale the moment anything ships.
+Package.sha256
+
+# Package build output and local run logs
+Bin/
+*.locked*
+_build.log
+plMemoryLeaks.txt
+plDefaultAssertHandlerOutput.txt

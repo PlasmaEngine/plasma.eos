@@ -1,0 +1,19 @@
+# Normalise text in the repository, check out native. Keeps diffs clean across
+# platforms without rewriting anyone's working copy.
+* text=auto
+
+*.cpp   text
+*.h     text
+*.inl   text
+*.cs    text
+*.md    text
+*.qrc   text
+*.txt   text
+*.plPackage       text
+*.plPluginBundle  text
+*.plMaterial      text
+*.plMaterialAsset text
+*.plShader        text
+
+*.png binary
+*.jpg binary
