@@ -82,8 +82,8 @@ public static class PlasmaPackageSdk
 
         rules.PublicDefinitions.Add("BUILDSYSTEM_COMPILE_ENGINE_AS_DLL");
         rules.PublicDefinitions.Add("BUILDSYSTEM_SDKVERSION_MAJOR=0");
-        rules.PublicDefinitions.Add("BUILDSYSTEM_SDKVERSION_MINOR=11");
-        rules.PublicDefinitions.Add("BUILDSYSTEM_SDKVERSION_PATCH=2");
+        rules.PublicDefinitions.Add("BUILDSYSTEM_SDKVERSION_MINOR=12");
+        rules.PublicDefinitions.Add("BUILDSYSTEM_SDKVERSION_PATCH=0");
         rules.PublicDefinitions.Add("UNICODE");
         rules.PublicDefinitions.Add("_UNICODE");
 
@@ -170,7 +170,9 @@ public static class PlasmaPackageSdk
         rules.SourceDirectory = sourceDirectory;
         rules.PCHUsage = PCHUsage.UseExplicitOrShared;
         rules.SharedPCHHeaderFile = pchHeaderFile;
-        rules.AdditionalCompilerFlags.Add($"/FI\"{Path.Combine(context.ProjectRoot, sourceDirectory, pchHeaderFile)}\"");
+        // Force-includes the PCH: /FI for MSVC, -include for clang
+        string pchHeaderPath = Path.Combine(context.ProjectRoot, sourceDirectory, pchHeaderFile);
+        rules.AdditionalCompilerFlags.Add(context.Platform == TargetPlatform.Windows ? $"/FI\"{pchHeaderPath}\"" : $"-include \"{pchHeaderPath}\"");
 
         rules.PublicIncludePaths.Add("..");
         rules.PrivateDefinitions.Add(buildDefinition);
@@ -226,12 +228,17 @@ public static class PlasmaPackageSdk
         {
             rules.PrivateLibraries.Add(Path.Combine(PackageBinaryDirectory(context), outputName + ".lib"));
         }
+        else if (context.Platform == TargetPlatform.Mac)
+        {
+            // ld64 resolves every symbol at link time, so the sibling package's dylib is linked too
+            rules.PrivateLibraries.Add(Path.Combine(PackageBinaryDirectory(context), outputName + ".dylib"));
+        }
     }
 
     public static void AddImportLibrary(ModuleRules rules, BuildContext context, string outputName)
     {
         var library = Path.Combine(SdkBinaryDirectory(context),
-            outputName + (context.Platform == TargetPlatform.Windows ? ".lib" : ".so"));
+            outputName + (context.Platform == TargetPlatform.Windows ? ".lib" : context.Platform == TargetPlatform.Mac ? ".dylib" : ".so"));
 
         if (File.Exists(library))
         {
