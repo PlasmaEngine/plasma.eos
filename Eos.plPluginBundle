@@ -5,8 +5,8 @@ PluginInfo
 {
 	string %DisplayName{"Epic Online Services"}
 	string %Category{"Gameplay"}
-	string %MinEngineVersion{"0.12.0"}
-	string %MaxEngineVersion{"0.12.0"}
+	string %MinEngineVersion{"0.12.1"}
+	string %MaxEngineVersion{"0.12.1"}
 	string %Icon{"EosIcon.png"}
 	string %Banner{"EosBanner.png"}
 	string %Description{"Epic Online Services backend for the platform services hub: sign-in, achievements, stats, leaderboards, friends, presence, lobbies, matchmaking, invites, entitlements, overlay, P2P transport, cloud saves and voice. Requires the EOS SDK DLL beside the game."}

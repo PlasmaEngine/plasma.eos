@@ -10,7 +10,7 @@ PackageInfo
 {
 	// ---- identity -------------------------------------------------------------
 	string %Id{"plasma.eos"}
-	string %Version{"1.2.0"}
+	string %Version{"1.2.1"}
 	string %Publisher{"PlasmaTechnology"}
 	string %License{"MIT"}
 	string %Homepage{"https://plasmagameengine.com"}
@@ -19,9 +19,9 @@ PackageInfo
 	// Must equal plSdkVersion::GetAbiTag() of the engine these binaries were built
 	// against. The build configuration is part of it - a Development and a Shipping
 	// build do not share a binary interface.
-	string %MinEngineVersion{"0.12.0"}
-	string %MaxEngineVersion{"0.12.0"}
-	string %AbiTag{"win64-msvc19-0.12.0-abi7-dev"}
+	string %MinEngineVersion{"0.12.1"}
+	string %MaxEngineVersion{"0.12.1"}
+	string %AbiTag{"win64-msvc19-0.12.1-abi7-dev"}
 
 	// ---- presentation ---------------------------------------------------------
 	// The SDK requirement leads the description: the plugin cannot load without the
